@@ -3,37 +3,236 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HoteBoost — Fonctionnalités</title>
+  <title>HoteBoost — Messagerie centralisée</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="page">
-    <!-- Menu déroulant "Fonctionnalités" -->
-    <div class="mega-menu" id="megaMenu">
-      <!-- Rail latéral des catégories -->
-      <aside class="rail">
-        <nav class="rail__nav" id="railNav" aria-label="Catégories de fonctionnalités"></nav>
-        <a class="rail__all" href="#">Toutes les fonctionnalités <span class="arrow">&rarr;</span></a>
-      </aside>
 
-      <!-- Liste des fonctionnalités de la catégorie active -->
-      <section class="panel" id="panel" aria-live="polite"></section>
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="nav">
+      <a class="brand" href="#">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 15c-1.2 1-1.6 4-1.6 4s2.8-.4 4-1.6a1.7 1.7 0 0 0-2.4-2.4Z" fill="#fff"/><path d="M11 13 8 10a17 17 0 0 1 1.6-3A10 10 0 0 1 19 2c0 2.2-.6 6-4.8 8.8A17 17 0 0 1 11 13Z" fill="#fff"/></svg>
+        </span>
+        <span class="brand__name">HoteBoost</span>
+      </a>
 
-      <!-- Carte promo (constante) -->
-      <aside class="promo">
-        <h3 class="promo__title">Conçu par une hôte,<br />pour les hôtes</h3>
-        <blockquote class="promo__quote">
-          «&nbsp;J'ai conçu HoteBoost parce que je vivais les mêmes galères que vous&nbsp;:
-          trop d'outils, trop de temps perdu, trop peu de solutions pensées pour les petits hébergeurs.&nbsp;»
-        </blockquote>
-        <p class="promo__author">— Gwendoline, fondatrice</p>
-        <a class="promo__cta" href="#">Essai gratuit <span class="arrow">&rarr;</span></a>
-      </aside>
+      <nav class="nav__links" aria-label="Navigation principale">
+        <div class="has-mega" id="megaTrigger">
+          <button class="nav__link nav__link--btn" type="button" aria-expanded="false">
+            Fonctionnalités
+            <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
+        <a class="nav__link" href="#">Tarifs</a>
+        <a class="nav__link" href="#">Blog</a>
+        <a class="nav__link" href="#">Connexion</a>
+      </nav>
+
+      <a class="btn btn--primary nav__cta" href="#">Essai gratuit</a>
     </div>
+
+    <!-- Méga-menu (dropdown de "Fonctionnalités") -->
+    <div class="mega-wrap" id="megaWrap" hidden>
+      <div class="mega-menu">
+        <aside class="rail">
+          <nav class="rail__nav" id="railNav" aria-label="Catégories de fonctionnalités"></nav>
+          <a class="rail__all" href="#">Toutes les fonctionnalités <span class="arrow">&rarr;</span></a>
+        </aside>
+        <section class="panel" id="panel" aria-live="polite"></section>
+        <aside class="promo">
+          <h3 class="promo__title">Conçu par une hôte,<br />pour les hôtes</h3>
+          <blockquote class="promo__quote">
+            «&nbsp;J'ai conçu HoteBoost parce que je vivais les mêmes galères que vous&nbsp;:
+            trop d'outils, trop de temps perdu, trop peu de solutions pensées pour les petits hébergeurs.&nbsp;»
+          </blockquote>
+          <p class="promo__author">— Gwendoline, fondatrice</p>
+          <a class="promo__cta btn btn--primary" href="#">Essai gratuit <span class="arrow">&rarr;</span></a>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="badges" data-reveal>
+          <span class="badge">Notifications push</span>
+          <span class="badge">Email · WhatsApp · Instagram</span>
+          <span class="badge">Booking &amp; Airbnb inclus</span>
+        </div>
+
+        <h1 class="hero__title" data-reveal>
+          Tous vos messages.<br />
+          Une seule boîte.<br />
+          <em>Zéro oubli.</em>
+        </h1>
+
+        <div class="notif-card" data-reveal>
+          <span class="notif-card__ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>
+          </span>
+          <div class="notif-card__body">
+            <div class="notif-card__top">
+              <strong>HoteBoost</strong>
+              <span class="notif-card__time">maintenant</span>
+              <span class="notif-card__dot">1</span>
+            </div>
+            <p class="notif-card__line1">Vous avez un nouveau message 💬</p>
+            <p class="notif-card__line2">Léo : «&nbsp;Bonjour, prenez-vous les chèques vacances&nbsp;?&nbsp;»</p>
+          </div>
+        </div>
+
+        <p class="hero__sub" data-reveal>
+          Email, WhatsApp, Instagram, Messenger, chat de votre site, Booking et Airbnb —
+          chaque conversation voyageur au même endroit, rattachée à la bonne réservation.
+        </p>
+
+        <div class="hero__actions" data-reveal>
+          <a class="btn btn--primary" href="#">Essayer gratuitement <span class="arrow">&rarr;</span></a>
+          <a class="btn btn--ghost" href="#">Voir les tarifs</a>
+        </div>
+
+        <div class="hero__channels" data-reveal id="heroChannels"></div>
+      </div>
+    </section>
+
+    <!-- ============ CANAUX ============ -->
+    <section class="channels-sec">
+      <div class="container">
+        <h2 class="section-title" data-reveal>
+          7 canaux réunis,<br /><em>0 messages oubliés</em>
+        </h2>
+        <div class="cards-grid" id="channelCards"></div>
+      </div>
+    </section>
+
+    <!-- ============ SPLIT ============ -->
+    <section class="split-sec">
+      <div class="container split">
+        <div class="split__text" data-reveal>
+          <h2 class="section-title section-title--left">
+            Toutes vos conversations<br /><em>au même endroit</em>
+          </h2>
+          <p class="split__p">
+            Une question sur Booking, une autre sur Airbnb, un mail pour une réservation directe,
+            un message WhatsApp la veille de l'arrivée. La messagerie centralisée rassemble tout,
+            quelle que soit la provenance. Vous lisez, répondez et retrouvez l'historique d'un
+            voyageur d'un coup d'œil.
+          </p>
+          <ul class="checklist" id="splitChecklist"></ul>
+        </div>
+        <div class="split__visual" data-reveal>
+          <!-- Maquette d'interface (mock CSS) -->
+          <div class="inbox">
+            <div class="inbox__chrome"><span></span><span></span><span></span></div>
+            <div class="inbox__body">
+              <aside class="inbox__list">
+                <div class="inbox__search"></div>
+                <div class="inbox__item is-active">
+                  <span class="inbox__av inbox__av--a">L</span>
+                  <div><b>Léo Martin</b><i>Chèques vacances ?</i></div>
+                </div>
+                <div class="inbox__item">
+                  <span class="inbox__av inbox__av--b">A</span>
+                  <div><b>Amélie R.</b><i>Heure d'arrivée</i></div>
+                </div>
+                <div class="inbox__item">
+                  <span class="inbox__av inbox__av--c">T</span>
+                  <div><b>Thomas</b><i>Le parking est…</i></div>
+                </div>
+                <div class="inbox__item">
+                  <span class="inbox__av inbox__av--d">S</span>
+                  <div><b>Sofia</b><i>Merci beaucoup !</i></div>
+                </div>
+              </aside>
+              <section class="inbox__thread">
+                <div class="inbox__badge">Booking · Studio Vue Mer</div>
+                <div class="bubble bubble--in">Bonjour, prenez-vous les chèques vacances&nbsp;?</div>
+                <div class="bubble bubble--out">Bonjour Léo&nbsp;! Oui, tout à fait 🙂</div>
+                <div class="bubble bubble--in">Parfait, je réserve alors.</div>
+                <div class="inbox__compose"></div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TÉMOIGNAGE ============ -->
+    <section class="quote-sec" data-reveal>
+      <div class="container quote">
+        <div class="stars" aria-hidden="true">★★★★★</div>
+        <blockquote class="quote__text">
+          «&nbsp;Tout arrive dans une seule boîte. Je réponds en deux minutes, même depuis le transat.&nbsp;»
+        </blockquote>
+        <div class="quote__author">
+          <span class="quote__av">G</span>
+          <div>
+            <b>Gwendoline</b>
+            <i>Fondatrice de HoteBoost · Gérante de Roc &amp; Love</i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="cta-sec">
+      <div class="container">
+        <div class="cta" data-reveal>
+          <div class="cta__content">
+            <h2 class="cta__title">Ne ratez plus<br /><span>aucun message d'un voyageur&nbsp;!</span></h2>
+            <p class="cta__sub">Connectez vos canaux en quelques minutes. Pas de compétence technique requise.</p>
+            <a class="btn btn--primary btn--lg" href="#">Démarrer l'essai gratuit <span class="arrow">&rarr;</span></a>
+            <p class="cta__note">14 jours gratuits · aucune carte bancaire requise</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="faq-sec">
+      <div class="container container--narrow">
+        <h2 class="section-title" data-reveal>Questions fréquentes</h2>
+        <div class="faq" id="faq" data-reveal></div>
+
+        <div class="related" data-reveal>
+          <span class="related__label">Fonctionnalités liées</span>
+          <div class="related__pills">
+            <a class="pill" href="#">Assistant IA <span class="arrow">&rarr;</span></a>
+            <a class="pill" href="#">Channel manager <span class="arrow">&rarr;</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer">
+      <a class="brand brand--footer" href="#">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 15c-1.2 1-1.6 4-1.6 4s2.8-.4 4-1.6a1.7 1.7 0 0 0-2.4-2.4Z" fill="#fff"/><path d="M11 13 8 10a17 17 0 0 1 1.6-3A10 10 0 0 1 19 2c0 2.2-.6 6-4.8 8.8A17 17 0 0 1 11 13Z" fill="#fff"/></svg>
+        </span>
+        <span class="brand__name">HoteBoost</span>
+      </a>
+      <nav class="footer__links" aria-label="Pied de page">
+        <a href="#">Tarifs</a><a href="#">Blog</a><a href="#">À propos</a><a href="#">FAQ</a>
+        <a href="#">Mentions légales</a><a href="#">Confidentialité</a><a href="#">CGV</a><a href="#">Contact</a>
+      </nav>
+      <div class="footer__social" aria-label="Réseaux sociaux">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 9h3V5h-3a4 4 0 0 0-4 4v2H7v4h3v6h4v-6h3l1-4h-4V9a1 1 0 0 1 1-1Z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v5M8 7.5v.01M12 16v-3a2 2 0 0 1 4 0v3"/></svg></a>
+      </div>
+    </div>
+    <p class="footer__copy">© 2025 HoteBoost. Tous droits réservés. Conçu par une hôte passionnée.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
