@@ -1,9 +1,10 @@
 /* ==================================================================
-   HoteBoost — landing page "Messagerie centralisée"
-   Méga-menu, cartes de canaux, FAQ, apparitions au scroll.
+   HoteBoost — Centre d'aide (layout Notion)
+   Sidebar gauche : toutes les fonctionnalités (navigation)
+   Sidebar droite : sommaire des chapitres de l'article (scrollspy)
    ================================================================== */
 
-/* ---------- Icônes (SVG inline, style linéaire) ---------- */
+/* ---------- Icônes ---------- */
 const ICONS = {
   calendarCheck: '<path d="M8 2v4M16 2v4M3 9h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"/><path d="m9 15 2 2 4-4"/>',
   rocket: '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>',
@@ -33,191 +34,127 @@ const ICONS = {
   bell: '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
   building: '<path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16M9 7h4M9 11h4M9 15h4"/>',
 };
-
-function svg(name, stroke = 1.7) {
-  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${stroke}"
+function svg(name) {
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name] || ''}</svg>`;
 }
 
-/* ---------- Données du méga-menu ---------- */
+/* ---------- Fonctionnalités (sidebar gauche) ---------- */
 const CATEGORIES = [
-  {
-    id: 'nuits-vides', icon: 'calendarCheck', label: 'Ne laissez plus de nuits vides',
-    note: 'Tous vos canaux synchronisés. Plus de trous dans le planning.',
-    link: 'Remplissez votre calendrier',
-    features: [
-      { icon: 'refresh', title: 'Channel manager', desc: 'Synchronisez Booking, Airbnb et les autres en temps réel.' },
-      { icon: 'trendingUp', title: 'Tarifs et promotions', desc: 'Promotions à règles et compensation des remises OTA : le direct reste le meilleur prix.' },
-      { icon: 'puzzle', title: 'Intégrations', desc: 'Booking, Airbnb, Stripe, PriceLabs… tout connecté.' },
-    ],
-  },
-  {
-    id: 'reservations-directes', icon: 'rocket', label: 'Boostez vos réservations directes',
-    note: 'Votre site. Vos conditions. Zéro commission.',
-    link: 'Recevez des réservations directes',
-    features: [
-      { icon: 'globe', title: 'Site de réservation directe', desc: 'Encaissez sans commission, directement sur votre compte Stripe.' },
-      { icon: 'card', title: 'Paiements en ligne', desc: 'Carte, Apple Pay, Google Pay, Klarna — encaissez en toute sérénité.' },
-      { icon: 'bank', title: 'Chèques-Vacances ANCV', desc: '30 millions de bénéficiaires règlent en direct sur votre site, via ANCV Connect.' },
-    ],
-  },
-  {
-    id: 'experience', icon: 'heart', label: 'Offrez une expérience inoubliable',
-    note: 'Des voyageurs chouchoutés. Des avis 5 étoiles.',
-    link: 'Impressionnez vos voyageurs',
-    features: [
-      { icon: 'book', title: 'Livret d’accueil digital', desc: 'Toutes les infos pratiques, accessibles par QR code.' },
-      { icon: 'gift', title: 'Extras & Bons cadeaux', desc: 'Vendez des extras et bons cadeaux, paiement intégré.' },
-      { icon: 'key', title: 'Serrures connectées', desc: 'Codes temporaires Nuki & Igloohome, zéro remise de clés.' },
-      { icon: 'star', title: 'Avis clients', desc: 'Collectez et valorisez vos avis par la gamification.' },
-    ],
-  },
-  {
-    id: 'temps', icon: 'clock', label: 'Libérez vos journées',
-    note: 'Paramétrez une fois. Laissez HoteBoost gérer le reste.',
-    link: 'Gagnez du temps',
-    features: [
-      { icon: 'spray', title: 'Entretien & Ménage', desc: 'Ménages créés automatiquement à chaque réservation, intervenants prévenus.' },
-      { icon: 'message', title: 'Messagerie centralisée', desc: 'Tous vos messages voyageurs dans une seule boîte.' },
-      { icon: 'sparkles', title: 'Assistant IA', desc: 'Pilotez votre activité en langage naturel.' },
-    ],
-  },
-  {
-    id: 'securite', icon: 'shield', label: 'Sécurisez votre activité',
-    note: 'Contrats, cautions, conformité. Tout est couvert.',
-    link: 'Protégez vos séjours',
-    features: [
-      { icon: 'file', title: 'Contrat & Caution', desc: 'Conditions acceptées à la réservation, caution par empreinte bancaire Stripe.' },
-      { icon: 'clipboard', title: 'Fiche d’arrivée', desc: 'Fiche de police dématérialisée, conforme et sans papier.' },
-      { icon: 'receipt', title: 'Facturation automatique', desc: 'Factures conformes générées et envoyées après chaque séjour.' },
-    ],
-  },
+  { id: 'nuits-vides', icon: 'calendarCheck', label: 'Ne laissez plus de nuits vides',
+    items: ['Channel manager', 'Tarifs et promotions', 'Intégrations'] },
+  { id: 'reservations', icon: 'rocket', label: 'Boostez vos réservations directes',
+    items: ['Site de réservation directe', 'Paiements en ligne', 'Chèques-Vacances ANCV'] },
+  { id: 'experience', icon: 'heart', label: 'Offrez une expérience inoubliable',
+    items: ['Livret d’accueil digital', 'Extras & Bons cadeaux', 'Serrures connectées', 'Avis clients'] },
+  { id: 'temps', icon: 'clock', label: 'Libérez vos journées',
+    items: ['Entretien & Ménage', 'Messagerie centralisée', 'Assistant IA'] },
+  { id: 'securite', icon: 'shield', label: 'Sécurisez votre activité',
+    items: ['Contrat & Caution', 'Fiche d’arrivée', 'Facturation automatique'] },
 ];
+const ACTIVE_ITEM = 'Messagerie centralisée'; // article courant
+const OPEN_GROUP = 'temps';
 
-const railNav = document.getElementById('railNav');
-const panel = document.getElementById('panel');
-let activeId = CATEGORIES[3].id; // "Libérez vos journées" contient la Messagerie centralisée
-
-const goArrow = `<span class="rail__go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-  <path d="M5 12h14M13 6l6 6-6 6"/></svg></span>`;
-
-function renderRail() {
-  railNav.innerHTML = CATEGORIES.map((cat) => `
-    <button class="rail__item ${cat.id === activeId ? 'is-active' : ''}" data-id="${cat.id}" type="button">
-      <span class="rail__ico">${svg(cat.icon)}</span>
-      <span>${cat.label}</span>
-      ${goArrow}
-    </button>`).join('');
-}
-
-function renderPanel() {
-  const cat = CATEGORIES.find((c) => c.id === activeId);
-  const feats = cat.features.map((f, i) => `
-    <article class="feat feat--enter" style="--i:${i}">
-      <div class="feat__ico">${svg(f.icon)}</div>
-      <div><h4 class="feat__title">${f.title}</h4><p class="feat__desc">${f.desc}</p></div>
-    </article>`).join('');
-  panel.innerHTML = `
-    <div class="panel__list">${feats}</div>
-    <div class="panel__foot feat--enter" style="--i:${cat.features.length}">
-      <p class="panel__note">${cat.note}</p>
-      <a class="panel__link" href="#">${cat.link} <span class="arrow">&rarr;</span></a>
+const sideNav = document.getElementById('sideNav');
+sideNav.innerHTML = CATEGORIES.map((cat) => {
+  const open = cat.id === OPEN_GROUP;
+  const links = cat.items.map((it) =>
+    `<a class="nav-link ${it === ACTIVE_ITEM ? 'is-active' : ''}" href="#">${it}</a>`).join('');
+  return `
+    <div class="nav-group ${open ? 'is-open' : ''}" data-id="${cat.id}">
+      <button class="nav-group__head" type="button">
+        <span class="nav-group__ico">${svg(cat.icon)}</span>
+        <span>${cat.label}</span>
+        <svg class="nav-group__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+      </button>
+      <div class="nav-group__items">${links}</div>
     </div>`;
-  requestAnimationFrame(() => panel.querySelectorAll('.feat--enter').forEach((el) => el.classList.add('is-in')));
-}
+}).join('');
 
-function setActive(id) {
-  if (id === activeId) return;
-  activeId = id;
-  renderRail();
-  panel.classList.add('is-swapping');
-  setTimeout(() => { renderPanel(); panel.classList.remove('is-swapping'); }, 140);
-}
-
-railNav.addEventListener('click', (e) => {
-  const btn = e.target.closest('.rail__item');
-  if (btn) setActive(btn.dataset.id);
+sideNav.addEventListener('click', (e) => {
+  const head = e.target.closest('.nav-group__head');
+  if (head) head.parentElement.classList.toggle('is-open');
 });
-railNav.addEventListener('mouseover', (e) => {
-  const btn = e.target.closest('.rail__item');
-  if (btn) setActive(btn.dataset.id);
+
+/* Filtre de recherche */
+const navSearch = document.getElementById('navSearch');
+navSearch.addEventListener('input', () => {
+  const q = navSearch.value.trim().toLowerCase();
+  document.querySelectorAll('.nav-group').forEach((group) => {
+    let anyMatch = false;
+    group.querySelectorAll('.nav-link').forEach((link) => {
+      const match = link.textContent.toLowerCase().includes(q);
+      link.style.display = match ? '' : 'none';
+      if (match) anyMatch = true;
+    });
+    const groupMatch = group.querySelector('.nav-group__head').textContent.toLowerCase().includes(q);
+    group.style.display = (anyMatch || groupMatch || !q) ? '' : 'none';
+    if (q && anyMatch) group.classList.add('is-open');
+  });
 });
-renderRail();
-renderPanel();
 
-/* ---------- Ouverture / fermeture du méga-menu ---------- */
-const megaTrigger = document.getElementById('megaTrigger');
-const megaWrap = document.getElementById('megaWrap');
-const megaBtn = megaTrigger.querySelector('.nav__link--btn');
-let megaTimer;
-
-function openMega() { clearTimeout(megaTimer); megaWrap.hidden = false; megaTrigger.classList.add('is-open'); megaBtn.setAttribute('aria-expanded', 'true'); }
-function closeMega() { megaWrap.hidden = true; megaTrigger.classList.remove('is-open'); megaBtn.setAttribute('aria-expanded', 'false'); }
-function scheduleClose() { megaTimer = setTimeout(closeMega, 160); }
-
-megaTrigger.addEventListener('mouseenter', openMega);
-megaTrigger.addEventListener('mouseleave', scheduleClose);
-megaWrap.addEventListener('mouseenter', () => clearTimeout(megaTimer));
-megaWrap.addEventListener('mouseleave', scheduleClose);
-megaBtn.addEventListener('click', (e) => { e.preventDefault(); megaWrap.hidden ? openMega() : closeMega(); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMega(); });
-
-/* ---------- Canaux de la section "7 canaux réunis" ---------- */
+/* ---------- Contenu : liste des canaux ---------- */
 const CHANNELS = [
-  { icon: 'mail', title: 'Email (IMAP/SMTP)', desc: 'Connectez votre boîte mail existante. Les demandes de vos voyageurs remontent dans HoteBoost, vous répondez avec votre propre adresse.' },
-  { icon: 'whatsapp', title: 'WhatsApp', desc: 'Le message envoyé la veille de l’arrivée, la question sur le parking — tout WhatsApp arrive dans la même boîte, rattaché au bon voyageur.' },
-  { icon: 'instagram', title: 'Instagram & Messenger', desc: 'Les DM Instagram et les messages Facebook Messenger de votre page rejoignent la conversation. Plus besoin d’ouvrir les applis.' },
+  { icon: 'mail', title: 'Email (IMAP/SMTP)', desc: 'Connectez votre boîte mail existante. Les demandes remontent dans HoteBoost, vous répondez avec votre propre adresse.' },
+  { icon: 'whatsapp', title: 'WhatsApp', desc: 'Le message de la veille de l’arrivée, la question sur le parking — tout arrive dans la même boîte, rattaché au bon voyageur.' },
+  { icon: 'instagram', title: 'Instagram & Messenger', desc: 'Les DM Instagram et les messages Facebook Messenger rejoignent la conversation. Plus besoin d’ouvrir les applis.' },
   { icon: 'chat', title: 'Chat de votre site', desc: 'Un visiteur pose une question sur votre site public ? Elle atterrit dans votre boîte HoteBoost, prête à recevoir votre réponse.' },
-  { icon: 'building', title: 'Booking & Airbnb', desc: 'Les messages Booking et Airbnb connectés remontent aussi — le nombre d’OTA dépend de votre offre (2, 5 ou illimité).' },
-  { icon: 'bell', title: 'Notifications push', desc: 'Un nouveau message ? Vous êtes prévenu instantanément sur votre téléphone. Vous répondez vite, vos voyageurs le sentent.' },
+  { icon: 'building', title: 'Booking & Airbnb', desc: 'Les messages Booking et Airbnb remontent aussi — le nombre d’OTA dépend de votre offre (2, 5 ou illimité).' },
+  { icon: 'bell', title: 'Notifications push', desc: 'Un nouveau message ? Vous êtes prévenu instantanément sur votre téléphone.' },
 ];
-document.getElementById('channelCards').innerHTML = CHANNELS.map((c, i) => `
-  <article class="channel-card" data-reveal style="--d:${(i % 3) * 90}ms">
-    <div class="channel-card__ico">${svg(c.icon)}</div>
-    <h3 class="channel-card__title">${c.title}</h3>
-    <p class="channel-card__desc">${c.desc}</p>
-  </article>`).join('');
+document.getElementById('chanList').innerHTML = CHANNELS.map((c) => `
+  <div class="chan">
+    <div class="chan__ico">${svg(c.icon)}</div>
+    <div><p class="chan__t">${c.title}</p><p class="chan__d">${c.desc}</p></div>
+  </div>`).join('');
 
-/* ---------- Petits icônes de canaux du hero ---------- */
-document.getElementById('heroChannels').innerHTML =
-  ['mail', 'whatsapp', 'instagram', 'message', 'chat', 'building'].map((n) => svg(n)).join('');
-
-/* ---------- Checklist de la section split ---------- */
-document.getElementById('splitChecklist').innerHTML = [
+/* ---------- Checklist ---------- */
+document.getElementById('checklist').innerHTML = [
   'Chaque message rattaché à la bonne réservation',
   'Réponse depuis HoteBoost, sans changer d’outil',
   'Historique complet de chaque voyageur',
 ].map((t) => `<li>${t}</li>`).join('');
 
-/* ---------- FAQ (accordéon) ---------- */
+/* ---------- FAQ ---------- */
 const FAQ = [
   { q: 'Quels canaux puis-je connecter ?', a: 'Email (IMAP/SMTP), WhatsApp, Instagram, Facebook Messenger, le chat de votre site, ainsi que Booking et Airbnb. Le nombre d’OTA dépend de votre offre (2, 5 ou illimité).' },
-  { q: 'Est-ce que je réponds depuis HoteBoost ?', a: 'Oui. Toutes vos conversations arrivent dans une seule boîte : vous lisez et répondez directement depuis HoteBoost, sans changer d’outil ni ouvrir chaque application.' },
-  { q: 'Je retrouve les anciens échanges ?', a: 'Bien sûr. L’historique complet de chaque voyageur est conservé et rattaché à sa réservation, quel que soit le canal d’origine du message.' },
+  { q: 'Est-ce que je réponds depuis HoteBoost ?', a: 'Oui. Toutes vos conversations arrivent dans une seule boîte : vous lisez et répondez directement depuis HoteBoost, sans changer d’outil.' },
+  { q: 'Je retrouve les anciens échanges ?', a: 'Bien sûr. L’historique complet de chaque voyageur est conservé et rattaché à sa réservation, quel que soit le canal d’origine.' },
 ];
-document.getElementById('faq').innerHTML = FAQ.map((f) => `
+const faqEl = document.getElementById('faqList');
+faqEl.innerHTML = FAQ.map((f) => `
   <div class="faq__item">
-    <button class="faq__q" type="button">
-      <span>${f.q}</span>
+    <button class="faq__q" type="button"><span>${f.q}</span>
       <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
     </button>
     <div class="faq__a"><p>${f.a}</p></div>
   </div>`).join('');
-
-document.getElementById('faq').addEventListener('click', (e) => {
+faqEl.addEventListener('click', (e) => {
   const q = e.target.closest('.faq__q');
   if (!q) return;
   const item = q.parentElement;
-  const answer = item.querySelector('.faq__a');
+  const a = item.querySelector('.faq__a');
   const open = item.classList.toggle('is-open');
-  answer.style.maxHeight = open ? answer.scrollHeight + 'px' : null;
+  a.style.maxHeight = open ? a.scrollHeight + 'px' : null;
 });
 
-/* ---------- Apparitions au scroll ---------- */
-const io = new IntersectionObserver((entries) => {
+/* ---------- Sommaire (droite) construit depuis les <section> ---------- */
+const sections = Array.from(document.querySelectorAll('.doc__body > section'));
+const tocList = document.getElementById('tocList');
+tocList.innerHTML = sections.map((s) => {
+  const title = s.querySelector('h2').textContent;
+  return `<a class="toc__link" href="#${s.id}" data-target="${s.id}">${title}</a>`;
+}).join('');
+const tocLinks = new Map(Array.from(tocList.children).map((a) => [a.dataset.target, a]));
+
+/* Scrollspy */
+const spy = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
-    if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+    if (entry.isIntersecting) {
+      tocLinks.forEach((a) => a.classList.remove('is-active'));
+      const link = tocLinks.get(entry.target.id);
+      if (link) link.classList.add('is-active');
+    }
   });
-}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+}, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+sections.forEach((s) => spy.observe(s));

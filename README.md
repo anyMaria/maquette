@@ -1,34 +1,25 @@
-# HoteBoost — Landing « Messagerie centralisée »
+# HoteBoost — Centre d'aide (layout Notion)
 
-Réplique en HTML/CSS/JS de la maquette Figma de la landing page HoteBoost
-(fonctionnalité Messagerie centralisée), avec le méga-menu « Fonctionnalités »
-intégré dans la navigation.
+Page de documentation type centre d'aide Notion, à trois colonnes :
 
-## Structure
-- `index.html` — page complète (header + méga-menu, hero, 7 canaux, split, témoignage, CTA, FAQ, footer)
-- `styles.css` — thème corail HoteBoost, mises en page responsive, animations
-- `script.js` — données (méga-menu, canaux, FAQ), dropdown, accordéon FAQ, apparitions au scroll
+- **Sidebar gauche** — toutes les fonctionnalités HoteBoost, en catégories dépliables
+  (recherche + navigation), la fonctionnalité courante surlignée.
+- **Contenu central** — l'article (ici « Messagerie centralisée »).
+- **Sidebar droite** — le sommaire des chapitres de l'article, avec scrollspy
+  (le chapitre visible est surligné, comme le "CONTENTS" de Notion).
 
-## Sections
-1. Header flottant + dropdown méga-menu (rail de 5 catégories + carte promo)
-2. Hero : badges, titre, carte de notification, sous-titre, CTA, icônes de canaux
-3. « 7 canaux réunis, 0 messages oubliés » — grille de 6 cartes
-4. « Toutes vos conversations au même endroit » — texte + checklist + maquette d'inbox (mock CSS)
-5. Témoignage (fond sombre)
-6. Bannière CTA « Ne ratez plus aucun message »
-7. FAQ (accordéon) + fonctionnalités liées
-8. Footer
+## Fichiers
+- `index.html` — top bar + layout 3 colonnes + article
+- `styles.css` — thème corail, sidebars sticky, responsive
+- `script.js` — navigation gauche (données), recherche, canaux, FAQ, sommaire + scrollspy
 
-## Interactions
-- Ouverture du méga-menu au survol/clic de « Fonctionnalités »
-- Bascule des fonctionnalités au survol des catégories (entrée décalée)
-- Accordéon FAQ
-- Apparitions au scroll (IntersectionObserver), désactivées si `prefers-reduced-motion`
-
-## Notes
-- La maquette d'interface (inbox) et le fond de la bannière CTA sont reconstitués
-  en CSS (pas d'images externes). Remplaçables par les visuels réels si besoin.
-- Les polices utilisent Poppins (Google Fonts) avec fallback système.
+## Comportements
+- Catégories dépliables/repliables à gauche, filtre de recherche
+- Sommaire à droite généré automatiquement depuis les `<h2>` des sections
+- Scrollspy : surligne le chapitre en cours de lecture
+- Accordéon FAQ ; `prefers-reduced-motion` respecté
 
 ## Aperçu
 Ouvrir `index.html` dans un navigateur.
+
+> La maquette d'inbox est reconstituée en CSS (pas d'images externes).
