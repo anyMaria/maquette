@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HoteBoost — Fonctionnalités</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <!-- Menu déroulant "Fonctionnalités" -->
+    <div class="mega-menu" id="megaMenu">
+      <!-- Rail latéral des catégories -->
+      <aside class="rail">
+        <nav class="rail__nav" id="railNav" aria-label="Catégories de fonctionnalités"></nav>
+        <a class="rail__all" href="#">Toutes les fonctionnalités <span class="arrow">&rarr;</span></a>
+      </aside>
+
+      <!-- Liste des fonctionnalités de la catégorie active -->
+      <section class="panel" id="panel" aria-live="polite"></section>
+
+      <!-- Carte promo (constante) -->
+      <aside class="promo">
+        <h3 class="promo__title">Conçu par une hôte,<br />pour les hôtes</h3>
+        <blockquote class="promo__quote">
+          «&nbsp;J'ai conçu HoteBoost parce que je vivais les mêmes galères que vous&nbsp;:
+          trop d'outils, trop de temps perdu, trop peu de solutions pensées pour les petits hébergeurs.&nbsp;»
+        </blockquote>
+        <p class="promo__author">— Gwendoline, fondatrice</p>
+        <a class="promo__cta" href="#">Essai gratuit <span class="arrow">&rarr;</span></a>
+      </aside>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
