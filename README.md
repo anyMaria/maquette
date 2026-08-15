@@ -1,25 +1,23 @@
-# HoteBoost — Centre d'aide (layout Notion)
+# HoteBoost — Messagerie centralisée (layout centre d'aide)
 
-Page de documentation type centre d'aide Notion, à trois colonnes :
+Ta maquette de landing « Messagerie centralisée » placée au centre d'une
+mise en page type centre d'aide Notion :
 
-- **Sidebar gauche** — toutes les fonctionnalités HoteBoost, en catégories dépliables
-  (recherche + navigation), la fonctionnalité courante surlignée.
-- **Contenu central** — l'article (ici « Messagerie centralisée »).
-- **Sidebar droite** — le sommaire des chapitres de l'article, avec scrollspy
-  (le chapitre visible est surligné, comme le "CONTENTS" de Notion).
+- **Sidebar gauche** — toutes les fonctionnalités HoteBoost (catégories dépliables + recherche)
+- **Centre** — la maquette qui défile (hero, 7 canaux, messagerie centralisée, témoignage, CTA, FAQ)
+- **Sidebar droite** — « Sur cette page » : sommaire des sections avec scrollspy
 
 ## Fichiers
-- `index.html` — top bar + layout 3 colonnes + article
-- `styles.css` — thème corail, sidebars sticky, responsive
-- `script.js` — navigation gauche (données), recherche, canaux, FAQ, sommaire + scrollspy
+- `index.html` — top bar + layout 3 colonnes + sections de la maquette
+- `styles.css` — thème corail, sidebars sticky, composants de la maquette, responsive
+- `script.js` — nav gauche + recherche, cartes canaux, FAQ, sommaire (depuis data-toc) + scrollspy
 
 ## Comportements
-- Catégories dépliables/repliables à gauche, filtre de recherche
-- Sommaire à droite généré automatiquement depuis les `<h2>` des sections
-- Scrollspy : surligne le chapitre en cours de lecture
+- Sommaire droite généré depuis l'attribut `data-toc` des sections, surlignage au scroll
+- Catégories dépliables + filtre de recherche à gauche
 - Accordéon FAQ ; `prefers-reduced-motion` respecté
 
 ## Aperçu
 Ouvrir `index.html` dans un navigateur.
 
-> La maquette d'inbox est reconstituée en CSS (pas d'images externes).
+> La maquette d'inbox et les fonds sombres (témoignage/CTA) sont en CSS (pas d'images externes).

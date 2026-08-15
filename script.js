@@ -102,11 +102,16 @@ const CHANNELS = [
   { icon: 'building', title: 'Booking & Airbnb', desc: 'Les messages Booking et Airbnb remontent aussi — le nombre d’OTA dépend de votre offre (2, 5 ou illimité).' },
   { icon: 'bell', title: 'Notifications push', desc: 'Un nouveau message ? Vous êtes prévenu instantanément sur votre téléphone.' },
 ];
-document.getElementById('chanList').innerHTML = CHANNELS.map((c) => `
-  <div class="chan">
-    <div class="chan__ico">${svg(c.icon)}</div>
-    <div><p class="chan__t">${c.title}</p><p class="chan__d">${c.desc}</p></div>
-  </div>`).join('');
+document.getElementById('channelCards').innerHTML = CHANNELS.map((c) => `
+  <article class="channel-card">
+    <div class="channel-card__ico">${svg(c.icon)}</div>
+    <h3 class="channel-card__title">${c.title}</h3>
+    <p class="channel-card__desc">${c.desc}</p>
+  </article>`).join('');
+
+/* Icônes de canaux du hero */
+document.getElementById('heroChannels').innerHTML =
+  ['mail', 'whatsapp', 'instagram', 'message', 'chat', 'building'].map((n) => svg(n)).join('');
 
 /* ---------- Checklist ---------- */
 document.getElementById('checklist').innerHTML = [
@@ -138,13 +143,11 @@ faqEl.addEventListener('click', (e) => {
   a.style.maxHeight = open ? a.scrollHeight + 'px' : null;
 });
 
-/* ---------- Sommaire (droite) construit depuis les <section> ---------- */
-const sections = Array.from(document.querySelectorAll('.doc__body > section'));
+/* ---------- Sommaire (droite) construit depuis data-toc ---------- */
+const sections = Array.from(document.querySelectorAll('.doc > section[data-toc]'));
 const tocList = document.getElementById('tocList');
-tocList.innerHTML = sections.map((s) => {
-  const title = s.querySelector('h2').textContent;
-  return `<a class="toc__link" href="#${s.id}" data-target="${s.id}">${title}</a>`;
-}).join('');
+tocList.innerHTML = sections.map((s) =>
+  `<a class="toc__link" href="#${s.id}" data-target="${s.id}">${s.dataset.toc}</a>`).join('');
 const tocLinks = new Map(Array.from(tocList.children).map((a) => [a.dataset.target, a]));
 
 /* Scrollspy */
